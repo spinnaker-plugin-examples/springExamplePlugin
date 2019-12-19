@@ -5,6 +5,8 @@ It tests the following cases:
 * plugin components are wired into app
 * configuration and properties are recognized
 
+Just build with `./gradlew build` and copy that zip under `/build` into the plugins location of your service (by default the `/plugins` directory under your service root.
+
 The following should be added to your service yml config.
 ```
 spinnaker:
