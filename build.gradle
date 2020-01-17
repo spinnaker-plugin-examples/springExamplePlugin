@@ -16,16 +16,23 @@ repositories {
   mavenLocal()
   mavenCentral()
   jcenter()
+  maven{
+    url "https://jitpack.io"
+  }
 }
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-  compile group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE'
+  compileOnly (group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE')
   compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-api', version: '7.3.0')
   compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: '7.3.0')
   compileOnly (group: 'org.springframework', name: 'spring-web', version: '5.2.2.RELEASE')
   compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: '7.70.0') {
     exclude group: "org.slf4j"
+  }
+  compile("com.github.canal-pipelines:canal:v0.1.1") {
+    exclude group: "org.slf4j"
+    exclude group: "com.netflix.spinnaker.orca"
   }
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.28'
 

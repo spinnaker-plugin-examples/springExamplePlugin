@@ -1,25 +1,21 @@
 package com.armory.plugin.example.spring
 
-import com.netflix.spinnaker.kork.plugins.api.spring.SpringPlugin
+import com.netflix.spinnaker.kork.plugins.api.spring.PrivilegedSpringPlugin
 import org.slf4j.LoggerFactory
 import org.pf4j.PluginWrapper
+import org.springframework.beans.factory.support.BeanDefinitionRegistry
 
+class SpringExamplePlugin(wrapper: PluginWrapper) : PrivilegedSpringPlugin(wrapper) {
 
-class SpringExamplePlugin(wrapper: PluginWrapper) : SpringPlugin(wrapper) {
-    override fun initApplicationContext() {
-        applicationContext.applicationName
-        logger.info("***** App name ${applicationContext.applicationName}")
-        logger.info(applicationContext.environment.toString())
-        logger.info(applicationContext.beanDefinitionNames.joinToString())
-
-        applicationContext.register(NewConfiguration::class.java)
-        applicationContext.register(NewConfigurationBean::class.java)
-        applicationContext.register(NewProperties::class.java)
-        applicationContext.register(NewService::class.java)
-        applicationContext.register(NewController::class.java)
-        applicationContext.register(OverrideService::class.java)
-
-        logger.info(applicationContext.beanDefinitionNames.joinToString())
+    override fun registerBeanDefinitions(registry: BeanDefinitionRegistry) {
+        listOf(
+                beanDefinitionFor(NewService::class.java),
+                beanDefinitionFor(NewProperties::class.java),
+                beanDefinitionFor(NewController::class.java),
+                primaryBeanDefinitionFor(OverrideService::class.java)
+        ).forEach {
+            registerBean(it, registry)
+        }
     }
 
     private val logger = LoggerFactory.getLogger(SpringExamplePlugin::class.java)

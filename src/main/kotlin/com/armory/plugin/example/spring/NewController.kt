@@ -1,9 +1,12 @@
 package com.armory.plugin.example.spring
 
+import io.pivotal.canal.model.Pipelines
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController("/new/service")
+@RestController()
+@RequestMapping("/new/service")
 class NewController(private val newService: NewService) {
 
     @GetMapping("/expressionFunctionNames")
@@ -16,13 +19,14 @@ class NewController(private val newService: NewService) {
         return newService.test()
     }
 
-    @GetMapping("/config")
-    fun config(): NewConfiguration {
-        return newService.config()
+    @GetMapping("/properties")
+    fun properties(): NewProperties {
+        return newService.properties()
     }
 
-    @GetMapping("/configBean")
-    fun configBean(): NewConfigurationBean {
-        return newService.configBean()
+    @GetMapping("/pipelines")
+    fun pipelines(): Pipelines {
+        return newService.pipelines()
     }
+
 }
