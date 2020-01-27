@@ -1,4 +1,4 @@
-package com.armory.plugin.example.spring
+package io.armory.plugin.example.spring
 
 import com.netflix.spinnaker.kork.expressions.ExpressionFunctionProvider
 import com.netflix.spinnaker.orca.capabilities.CapabilitiesService

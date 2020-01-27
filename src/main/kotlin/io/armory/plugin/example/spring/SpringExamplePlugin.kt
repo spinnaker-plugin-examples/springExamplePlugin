@@ -1,4 +1,4 @@
-package com.armory.plugin.example.spring
+package io.armory.plugin.example.spring
 
 import com.netflix.spinnaker.kork.plugins.api.spring.PrivilegedSpringPlugin
 import org.slf4j.LoggerFactory

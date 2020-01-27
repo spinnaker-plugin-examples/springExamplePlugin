@@ -1,4 +1,4 @@
-package com.armory.plugin.example.spring
+package io.armory.plugin.example.spring
 
 import io.pivotal.canal.model.Pipelines
 import org.springframework.web.bind.annotation.GetMapping
