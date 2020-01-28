@@ -18,8 +18,6 @@ Your plugin needs to extend PrivilegedSpringPlugin and implement registerBeanDef
 
 We will probably need was way for registerBeanDefinitions(BeanDefinitionRegistry) to conditionally load beans based on the service that it is used in. I didn't see a good way to do that. It would be possible to cast BeanDefinitionRegistry to DefaultListableBeanFactory and look at the serializationId, but that relies on some implementation details.
 
-A new release for Kork and updating that dependency is required. This had been tested against a branch of Kork locally withg the required changes.
-
 Build with `./gradlew build` and copy that zip under `/build` into the plugins location of your service (by default the `/plugins` directory under your service root.
 
 The following should be added to your service yml config.
