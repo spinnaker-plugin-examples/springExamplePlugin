@@ -24,9 +24,9 @@ repositories {
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
   compileOnly (group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE')
-  compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: '7.13.0')
+  compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: '7.17.0')
   compileOnly (group: 'org.springframework', name: 'spring-web', version: '5.2.2.RELEASE')
-  compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: '7.78.0') {
+  compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: '7.83.0') {
     exclude group: "org.slf4j"
   }
   compile("com.github.canal-pipelines:canal:v0.1.1") {
@@ -63,7 +63,7 @@ tasks {
   }
 }
 
-task plugin(type: Jar) {
+task assemblePlugin(type: Zip) {
   baseName = "${pluginId}"
   into('classes') {
     with jar
@@ -71,12 +71,18 @@ task plugin(type: Jar) {
   into('lib') {
     from configurations.compile
   }
-  extension('zip')
+}
+assemble.dependsOn project.tasks.assemblePlugin
+
+task copyPluginJars(type: Copy) {
+  from configurations.compile
+  into rootProject.buildDir.path + '\\' +'jars'
 }
 
-task assemblePlugin(type: Copy) {
-  from plugin
-  into rootProject.buildDir.path
+task copyPluginIdxs(type: Copy) {
+  from rootProject.buildDir.path + '\\tmp\\kapt3\\classes'
+  into rootProject.buildDir.path + '\\classes\\kotlin'
 }
 
-build.dependsOn project.tasks.assemblePlugin
+build.dependsOn project.tasks.copyPluginJars
+build.dependsOn project.tasks.copyPluginIdxs
