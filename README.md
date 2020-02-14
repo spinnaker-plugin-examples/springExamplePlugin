@@ -21,7 +21,7 @@ We will probably need was way for registerBeanDefinitions(BeanDefinitionRegistry
 <h2>Usage</h2>
 
 1) Run `./gradlew assemblePlugin`
-2) Put the `/build/distributions/Armory.SpringExtensionPlugin-X.X.X.zip` in the configured plugins location for Orca.
+2) Put the `/build/distributions/Armory.SpringExtensionPlugin-X.X.X.zip` in the [configured plugins location for Orca](https://pf4j.org/doc/packaging.html).
 3) Configure Orca. Put the following in orca.yml.
 ```
 spinnaker:
@@ -33,6 +33,8 @@ spinnaker:
 newproperties:
   test: 'test1'
 ```
+
+Or use the [examplePluginRepository](https://github.com/spinnaker-plugin-examples/examplePluginRepository) to avoid copying the plugin `.zip` artifact.
 
 To debug the plugin inside Orca using IntelliJ Idea follow these steps:
 
