@@ -30,7 +30,7 @@ spinnakerPlugin {
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
   compileOnly (group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE')
-  compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: '7.17.0')
+  compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: "${korkVersion}")
   compileOnly (group: 'org.springframework', name: 'spring-web', version: '5.2.2.RELEASE')
   compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: '7.83.0') {
     exclude group: "org.slf4j"
