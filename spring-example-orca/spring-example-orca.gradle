@@ -20,9 +20,6 @@ repositories {
   mavenCentral()
   jcenter()
   maven { url "http://dl.bintray.com/spinnaker/spinnaker/" }
-  maven{
-    url "https://jitpack.io"
-  }
 }
 
 spinnakerPlugin {
@@ -37,10 +34,6 @@ dependencies {
   compileOnly (group: 'org.springframework', name: 'spring-web', version: '5.2.2.RELEASE')
   compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: '7.83.0') {
     exclude group: "org.slf4j"
-  }
-  implementation("com.github.canal-pipelines:canal:v0.1.1") {
-    exclude group: "org.slf4j"
-    exclude group: "com.netflix.spinnaker.orca"
   }
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.28'
 

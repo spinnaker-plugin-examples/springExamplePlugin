@@ -2,11 +2,6 @@ package io.armory.plugin.example.spring
 
 import com.netflix.spinnaker.orca.capabilities.CapabilitiesService
 
-import io.pivotal.canal.extensions.nestedstages.stages
-import io.pivotal.canal.extensions.pipelines
-import io.pivotal.canal.model.Pipelines
-import io.pivotal.canal.model.Wait
-
 class NewService(val capabilitiesService: CapabilitiesService,
                  val newProperties: NewProperties
 ) {
@@ -21,19 +16,6 @@ class NewService(val capabilitiesService: CapabilitiesService,
 
     fun properties(): NewProperties {
         return newProperties
-    }
-
-    // uses 3rd party library that is not in Spinnaker
-    fun pipelines(): Pipelines {
-        return pipelines {
-            app("app1") {
-                pipeline("just waiting") {
-                    stages = stages {
-                        stage(Wait(420))
-                    }
-                }
-            }
-        }
     }
 
 }
