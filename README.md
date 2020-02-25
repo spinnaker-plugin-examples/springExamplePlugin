@@ -1,3 +1,5 @@
+![CI](https://github.com/spinnaker-plugin-examples/springExamplePlugin/workflows/CI/badge.svg)
+
 This plugin exercises the Spring capabilities of Spinnaker plugins. There are no PF4J extension points or dependencies. Instead everything is Spring components.
 
 It tests the following cases and all of it works without having to use Kork plugin's "unsafe" mode:
