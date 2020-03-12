@@ -32,7 +32,7 @@ dependencies {
   compileOnly (group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE')
   compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: "${korkVersion}")
   compileOnly (group: 'org.springframework', name: 'spring-web', version: '5.2.2.RELEASE')
-  compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: '7.83.0') {
+  compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: "${orcaVersion}") {
     exclude group: "org.slf4j"
   }
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.28'
