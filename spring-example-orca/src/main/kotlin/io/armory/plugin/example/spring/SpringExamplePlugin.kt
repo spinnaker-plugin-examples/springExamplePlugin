@@ -11,6 +11,7 @@ class SpringExamplePlugin(wrapper: PluginWrapper) : PrivilegedSpringPlugin(wrapp
         listOf(
                 beanDefinitionFor(NewService::class.java),
                 beanDefinitionFor(NewProperties::class.java),
+                beanDefinitionFor(ServiceFactory::class.java),
                 beanDefinitionFor(NewController::class.java),
                 primaryBeanDefinitionFor(OverrideService::class.java)
         ).forEach {
