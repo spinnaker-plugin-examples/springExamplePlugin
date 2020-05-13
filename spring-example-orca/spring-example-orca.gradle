@@ -25,6 +25,7 @@ repositories {
 spinnakerPlugin {
   serviceName = "orca"
   pluginClass = "io.armory.plugin.example.spring.SpringExamplePlugin"
+  require = "orca>=8.0.0"
 }
 
 dependencies {
