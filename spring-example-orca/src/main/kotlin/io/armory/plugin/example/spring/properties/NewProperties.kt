@@ -1,4 +1,4 @@
-package io.armory.plugin.example.spring
+package io.armory.plugin.example.spring.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

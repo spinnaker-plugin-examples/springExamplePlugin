@@ -3,6 +3,8 @@ package io.armory.plugin.example.spring
 import com.netflix.spinnaker.orca.capabilities.CapabilitiesService
 import dev.minutest.junit.JUnit5Minutests
 import dev.minutest.rootContext
+import io.armory.plugin.example.spring.properties.NewProperties
+import io.armory.plugin.example.spring.services.NewService
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 

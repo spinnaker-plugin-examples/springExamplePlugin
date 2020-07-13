@@ -1,7 +1,10 @@
-package io.armory.plugin.example.spring
+package io.armory.plugin.example.spring.services
 
 import com.netflix.spinnaker.orca.capabilities.CapabilitiesService
+import io.armory.plugin.example.spring.properties.NewProperties
+import org.springframework.stereotype.Component
 
+@Component
 class NewService(val capabilitiesService: CapabilitiesService,
                  val newProperties: NewProperties
 ) {
