@@ -10,16 +10,12 @@ It tests the following cases and all of it works without having to use Kork plug
 * plugin beans are autowired into the app beans and replace app beans if primary (this allows modifying existing spinnaker behavior)
 * properties are recognized
 * controllers add new endpoints
-* a service created using a factory bean for init logic based on other beans or properties
 * new dependencies that are not in Spinnaker can be used in your plugin beans
-
-Some things that don't work:
-* the Configuration annotation won't be recognized in a plugin bean so you can't create beans that way
+* the Configuration annotation will be recognized in a plugin bean so you can create beans that way
 * class path scanning your plugin
-* the Conditional annotation won't be recognized in a plugin bean
-* Comnponent and Primary annotations aren't recognized, but that functionality still exists
+* Comnponent and Primary annotations aren recognized
 
-Your plugin needs to extend PrivilegedSpringPlugin and implement registerBeanDefinitions(BeanDefinitionRegistry) to explicitly create and register BeanDefinitions. There are helper methods to make this easier and they default to singleton scope with constructor autowiring.  See SpringExamplePlugin for an example.
+Your plugin needs to extend SpringLoaderPlugin and implement getPackagesToScan(). See SpringExamplePlugin for an example.
 
 <h2>Usage</h2>
 
