@@ -13,7 +13,7 @@ It tests the following cases and all of it works without having to use Kork plug
 * new dependencies that are not in Spinnaker can be used in your plugin beans
 * the Configuration annotation will be recognized in a plugin bean so you can create beans that way
 * class path scanning your plugin
-* Comnponent and Primary annotations aren recognized
+* Component and Primary annotations aren recognized
 
 Your plugin needs to extend SpringLoaderPlugin and implement getPackagesToScan(). See SpringExamplePlugin for an example.
 
