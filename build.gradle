@@ -1,7 +1,6 @@
 buildscript {
   repositories {
     mavenCentral()
-    maven { url "https://dl.bintray.com/spinnaker/gradle/" }
   }
   dependencies {
   }
