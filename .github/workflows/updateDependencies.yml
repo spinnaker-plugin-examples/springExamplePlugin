@@ -1,0 +1,45 @@
+name: Update Dependencies
+
+on:
+  repository_dispatch:
+    types: UpdateDependencies
+
+jobs:
+  test_latest:
+    name: Test Latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+        with:
+          - ref: ${{ github.event.client_payload.pluginBranch.branch }}"
+      - name: set up java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: test desired version
+        if: github.event.client_payload.hasDependencyUpdates == true
+        run: |
+          echo "${{ github.event.client_payload }}" > gradle.properties
+          ./gradlew test
+#      - name: notify build failure
+#        if: failure()
+#        run: |
+#          curl -XPOST -u "${{ secrets.USERNAME }}:${{ secrets.TOKEN }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/spinnaker-plugin-examples/examplePluginRepository/dispatches --data "{\"event_type\": \"onPluginDepUpdateFailure\", \"client_payload\": {\"workflow\": \"${GITHUB_WORKFLOW}\", \"repo\": \"${GITHUB_REPOSITORY}\", \"dependency\": \"Platform Release\", \"version\": \"${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}\"}}"
+      - name: commit gradle properties
+        if: (github.event.client_payload.hasDependencyUpdates == true) && success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add gradle.properties
+          git commit -m "update dependencies to platform release ${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}"
+      - name: commit gradle properties
+        if: (github.event.client_payload.hasDependencyUpdates == true) && (github.event.client_payload.createTag == true) && success()
+        run: |
+          git tag -a v${{ github.event.client_payload.pluginBranch.platformReleaseVersion }} -m "For Spinnaker platform release ${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}"
+      - name: push changes
+        if: (github.event.client_payload.hasDependencyUpdates == true) && success()
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tags: true
