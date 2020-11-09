@@ -20,7 +20,7 @@ jobs:
       - name: test desired version
         if: github.event.client_payload.hasDependencyUpdates == true
         run: |
-          echo "${{ github.event.client_payload }}" > gradle.properties
+          echo "${{ github.event.client_payload.newGradleProperties }}" > gradle.properties
           ./gradlew test
 #      - name: notify build failure
 #        if: failure()
