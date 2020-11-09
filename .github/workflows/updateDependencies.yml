@@ -33,7 +33,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add gradle.properties
           git commit -m "update dependencies to platform release ${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}"
-      - name: commit gradle properties
+      - name: create tag
         if: (github.event.client_payload.hasDependencyUpdates == true) && (github.event.client_payload.createTag == true) && success()
         run: |
           git tag -a v${{ github.event.client_payload.pluginBranch.platformReleaseVersion }} -m "For Spinnaker platform release ${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}"
