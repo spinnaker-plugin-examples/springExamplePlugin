@@ -9,10 +9,13 @@ jobs:
     name: Test Latest
     runs-on: ubuntu-latest
     steps:
+      - name: echo event
+        run: |
+          echo "${{ github.event.client_payload }}"
       - name: checkout code
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.client_payload.pluginBranch.branch }}
+          ref: ${{ github.event.client_payload.branchName }}
       - name: set up java
         uses: actions/setup-java@v1
         with:
@@ -22,21 +25,17 @@ jobs:
         run: |
           echo "${{ github.event.client_payload.newGradleProperties }}" > gradle.properties
           ./gradlew test
-#      - name: notify build failure
-#        if: failure()
-#        run: |
-#          curl -XPOST -u "${{ secrets.USERNAME }}:${{ secrets.TOKEN }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/spinnaker-plugin-examples/examplePluginRepository/dispatches --data "{\"event_type\": \"onPluginDepUpdateFailure\", \"client_payload\": {\"workflow\": \"${GITHUB_WORKFLOW}\", \"repo\": \"${GITHUB_REPOSITORY}\", \"dependency\": \"Platform Release\", \"version\": \"${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}\"}}"
       - name: commit gradle properties
         if: (github.event.client_payload.hasDependencyUpdates == true) && success()
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add gradle.properties
-          git commit -m "update dependencies to platform release ${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}"
+          git commit -m "update dependencies to platform release ${{ github.event.client_payload.platformVersion }}"
       - name: create tag
         if: (github.event.client_payload.hasDependencyUpdates == true) && (github.event.client_payload.createTag == true) && success()
         run: |
-          git tag -a v${{ github.event.client_payload.pluginBranch.platformReleaseVersion }} -m "For Spinnaker platform release ${{ github.event.client_payload.pluginBranch.platformReleaseVersion }}"
+          git tag -a v${{ github.event.client_payload.platformVersion }} -m "For Spinnaker platform release ${{ github.event.client_payload.platformVersion }}"
       - name: push changes
         if: (github.event.client_payload.hasDependencyUpdates == true) && success()
         uses: ad-m/github-push-action@master
