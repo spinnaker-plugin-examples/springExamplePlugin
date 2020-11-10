@@ -25,20 +25,20 @@ jobs:
         run: |
           echo "${{ github.event.client_payload.newGradleProperties }}" > gradle.properties
           ./gradlew test
-      - name: commit gradle properties
-        if: (github.event.client_payload.hasDependencyUpdates == true) && success()
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add gradle.properties
-          git commit -m "update dependencies to platform release ${{ github.event.client_payload.platformVersion }}"
-      - name: create tag
-        if: (github.event.client_payload.hasDependencyUpdates == true) && (github.event.client_payload.createTag == true) && success()
-        run: |
-          git tag -a v${{ github.event.client_payload.platformVersion }} -m "For Spinnaker platform release ${{ github.event.client_payload.platformVersion }}"
-      - name: push changes
-        if: (github.event.client_payload.hasDependencyUpdates == true) && success()
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tags: true
+
+      - name: Create Pull Request
+          uses: peter-evans/create-pull-request@v3
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            commit-message: "update dependencies to platform version ${{ github.event.client_payload.platformVersion }}"
+            branch: ${{ github.event.client_payload.branchName }}_${{ github.event.client_payload.platformVersion }}
+            branch-suffix:
+            title: "Update dependencies to platform version ${{ github.event.client_payload.platformVersion }}"
+            body: |
+              Event
+              ```
+              ${{ toJson(github.event.client_payload) }}
+              ```
+            labels: |
+              updateDeps
+              ${{ github.event.client_payload.platformVersion }}
