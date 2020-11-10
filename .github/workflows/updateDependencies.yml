@@ -27,18 +27,18 @@ jobs:
           ./gradlew test
 
       - name: Create Pull Request
-          uses: peter-evans/create-pull-request@v3
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            commit-message: "update dependencies to platform version ${{ github.event.client_payload.platformVersion }}"
-            branch: ${{ github.event.client_payload.branchName }}_${{ github.event.client_payload.platformVersion }}
-            branch-suffix:
-            title: "Update dependencies to platform version ${{ github.event.client_payload.platformVersion }}"
-            body: |
-              Event
-              ```
-              ${{ toJson(github.event.client_payload) }}
-              ```
-            labels: |
-              updateDeps
-              ${{ github.event.client_payload.platformVersion }}
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "update dependencies to platform version ${{ github.event.client_payload.platformVersion }}"
+          branch: ${{ github.event.client_payload.branchName }}_${{ github.event.client_payload.platformVersion }}
+          branch-suffix:
+          title: "Update dependencies to platform version ${{ github.event.client_payload.platformVersion }}"
+          body: |
+            Event
+            ```
+            ${{ toJson(github.event.client_payload) }}
+            ```
+          labels: |
+            updateDeps
+            ${{ github.event.client_payload.platformVersion }}
