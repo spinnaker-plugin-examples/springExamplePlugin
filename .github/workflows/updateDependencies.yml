@@ -35,4 +35,3 @@ jobs:
             ```
           labels: |
             updateDeps
-            ${{ github.event.client_payload.platformVersion }}
