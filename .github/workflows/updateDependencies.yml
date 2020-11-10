@@ -23,6 +23,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
+          author: claymccoy <github@claymccoy.com>
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "update dependencies to platform version ${{ github.event.client_payload.platformVersion }}"
           branch: ${{ github.event.client_payload.platformVersion }}
