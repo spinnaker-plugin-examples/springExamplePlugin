@@ -20,6 +20,10 @@ on:
     types:
       - completed
   status: {}
+  workflow_run:
+    workflows: [ "Update Dependencies" ]
+    types:
+      - completed
 
 jobs:
   auto_merge:
