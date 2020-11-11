@@ -5,8 +5,8 @@ on:
     types: UpdateDependencies
 
 jobs:
-  test_latest:
-    name: Test Latest
+  update_dependencies:
+    name: Update Dependencies
     runs-on: ubuntu-latest
     steps:
       - name: echo event
