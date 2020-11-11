@@ -19,6 +19,7 @@ jobs:
       - name: update versions
         if: github.event.client_payload.hasDependencyUpdates == true
         run: |
+          find . -type f -name "*.gradle" -exec sed -i -e 's,"http://dl.bintray.com/spinnaker/spinnaker/","https://spinnaker-releases.bintray.com/jars",' {} \;
           echo "${{ github.event.client_payload.newGradleProperties }}" > gradle.properties
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
