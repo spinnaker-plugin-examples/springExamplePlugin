@@ -1,6 +1,4 @@
 ![CI](https://github.com/spinnaker-plugin-examples/springExamplePlugin/workflows/CI/badge.svg)
-![Latest Kork](https://github.com/spinnaker-plugin-examples/springExamplePlugin/workflows/Latest%20Kork/badge.svg?branch=master)
-![Latest Orca](https://github.com/spinnaker-plugin-examples/springExamplePlugin/workflows/Latest%20Orca/badge.svg?branch=master)
 
 This plugin exercises the Spring capabilities of Spinnaker plugins. There are no PF4J extension points or dependencies. Instead everything is Spring components.
 
