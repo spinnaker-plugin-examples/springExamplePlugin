@@ -26,9 +26,9 @@ repositories {
 }
 
 spinnakerPlugin {
-  serviceName = "orca"
+  serviceName = "front50"
   pluginClass = "io.armory.plugin.example.spring.SpringExamplePlugin"
-  requires = "orca>=8.0.0"
+  requires = "front50>=0.0.0"
 }
 
 dependencies {
@@ -36,10 +36,12 @@ dependencies {
   compileOnly (group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE')
   compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: "${korkVersion}")
   compileOnly (group: 'org.springframework', name: 'spring-web', version: '5.2.2.RELEASE')
-  compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: "${orcaVersion}")
+  compileOnly (group: 'com.netflix.spinnaker.front50', name: 'front50-core', version: "${front50Version}")
+  compileOnly (group: 'com.netflix.spinnaker.front50', name: 'front50-s3', version: "${front50Version}")
+  compileOnly (group: 'com.amazonaws', name: 'aws-java-sdk-core', version: "1.11.934")
+  compileOnly (group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: "1.11.934")
 
 
-  testImplementation (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: "${orcaVersion}")
   testImplementation (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: "${korkVersion}")
 
   testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.2"
