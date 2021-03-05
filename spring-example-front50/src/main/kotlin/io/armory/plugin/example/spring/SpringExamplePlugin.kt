@@ -1,11 +1,11 @@
 package io.armory.plugin.example.spring
 
-import com.netflix.spinnaker.kork.plugins.api.spring.SpringLoader
 import com.netflix.spinnaker.kork.plugins.api.spring.SpringLoaderPlugin
+import io.armory.plugin.example.spring.services.MyAmazonS3
+import io.armory.plugin.example.spring.services.MyS3StorageService
 import org.pf4j.PluginWrapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.support.BeanDefinitionRegistry
-import java.util.*
 
 class SpringExamplePlugin(wrapper: PluginWrapper) : SpringLoaderPlugin(wrapper) {
 
@@ -19,31 +19,11 @@ class SpringExamplePlugin(wrapper: PluginWrapper) : SpringLoaderPlugin(wrapper) 
 
     override fun registerBeanDefinitions(registry: BeanDefinitionRegistry?) {
         super.registerBeanDefinitions(registry)
-
-        // delay injection until after the plugin has a chance to load its own beans
-        val springLoaderBeanName = wrapper.pluginId + "." + SpringLoader::class.java.name
         listOf(
-                "deliveryRepository",
-                "applicationPermissionDAO",
-                "notificationDAO",
-                "defaultObjectKeyLoader",
-                "entityTagsDAO",
-                "pipelineTemplateDAO",
-                "pluginInfoRepository",
-                "snapshotDAO",
-                "pipelineStrategyDAO",
-                "pluginVersionPinningRepository",
-                "projectDAO",
-                "applicationDAO",
-                "compositeStorageServiceConfiguration",
-                "serviceAccountDAO",
-                "pipelineDAO"
+            primaryBeanDefinitionFor(MyAmazonS3::class.java),
+            primaryBeanDefinitionFor(MyS3StorageService::class.java)
         ).forEach {
-            val dependentBeanDef = registry!!.getBeanDefinition(it)
-            val mappingDependsOn = dependentBeanDef.dependsOn?.toList() ?: emptyList()
-            dependentBeanDef.setDependsOn(
-                    *(mappingDependsOn + springLoaderBeanName).filterNotNull().toTypedArray()
-            )
+            registerBean(it, registry)
         }
     }
 
