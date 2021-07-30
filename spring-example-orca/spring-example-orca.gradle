@@ -13,43 +13,59 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'kotlin-kapt'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
   mavenCentral()
-  jcenter()
-  maven { url "https://spinnaker-releases.bintray.com/jars" }
-
-  // Used for testing against the Google product releases.
-  maven { url "https://spinnaker-releases.bintray.com/jars" }
+  maven {
+        url 'https://armory.jfrog.io/armory/gradle-dev-local/'
+        credentials {
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+    }
 }
 
 spinnakerPlugin {
   serviceName = "orca"
   pluginClass = "io.armory.plugin.example.spring.SpringExamplePlugin"
-  requires = "orca>=8.0.0"
 }
 
 dependencies {
   compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
   compileOnly (group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE')
-  compileOnly (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: "${korkVersion}")
+  compileOnly (group: 'io.spinnaker.kork', name: 'kork-plugins-spring-api', version: "${korkVersion}")
   compileOnly (group: 'org.springframework', name: 'spring-web', version: '5.2.2.RELEASE')
-  compileOnly (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: "${orcaVersion}")
+  compileOnly (group: 'io.spinnaker.orca', name: 'orca-core', version: "${orcaVersion}")
+  compileOnly(platform("io.spinnaker.orca:orca-bom:${orcaVersion}"))
 
-
-  testImplementation (group: 'com.netflix.spinnaker.orca', name: 'orca-core', version: "${orcaVersion}")
-  testImplementation (group: 'com.netflix.spinnaker.kork', name: 'kork-plugins-spring-api', version: "${korkVersion}")
+  testImplementation "org.springframework:spring-context"
+  testImplementation "org.springframework:spring-web"
+  testImplementation(platform("io.spinnaker.orca:orca-bom:${orcaVersion}"))
+  testImplementation "io.spinnaker.orca:orca-core"
+  testImplementation "io.spinnaker.orca:orca-api"
+  testImplementation "io.spinnaker.orca:orca-api-tck"
+  testImplementation "io.spinnaker.kork:kork-plugins-spring-api"
+  testImplementation "io.spinnaker.kork:kork-plugins-tck"
 
   testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.2"
   testImplementation "io.strikt:strikt-core:0.22.1"
-  testImplementation "dev.minutest:minutest:1.10.0"
+  testImplementation "dev.minutest:minutest:1.13.0"
   testImplementation "io.mockk:mockk:1.9.3"
+  testImplementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.1"
+  testImplementation "javax.servlet:javax.servlet-api:4.0.1"
 
   testRuntime "org.junit.jupiter:junit-jupiter-engine:5.4.0"
   testRuntime "org.junit.platform:junit-platform-launcher:1.4.0"
   testRuntime "org.junit.platform:junit-platform-commons:1.5.2"
+}
+
+compileTestKotlin {
+  kotlinOptions {
+    languageVersion = "1.3"
+    jvmTarget = "11"
+  }
 }
 
 tasks.withType(Test) {
