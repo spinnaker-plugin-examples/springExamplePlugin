@@ -1,6 +1,6 @@
 package io.armory.plugin.example.spring.config
 
-import com.netflix.spinnaker.kork.expressions.ExpressionFunctionProvider
+import com.netflix.spinnaker.kork.api.expressions.ExpressionFunctionProvider
 import com.netflix.spinnaker.kork.plugins.api.spring.ExposeToApp
 import io.armory.plugin.example.spring.properties.NewProperties
 import io.armory.plugin.example.spring.services.OverrideService
@@ -18,7 +18,7 @@ class NewConfiguration {
     @Primary
     @ExposeToApp
     // use bean name of bean you are overriding from service as method name
-    fun capabilitiesService(expressionFunctionProviders: MutableList<ExpressionFunctionProvider>?,
+    fun capabilitiesService(expressionFunctionProviders: MutableList<ExpressionFunctionProvider>,
                         pluginManager: PluginManager?): OverrideService {
         return OverrideService(expressionFunctionProviders, pluginManager)
     }
