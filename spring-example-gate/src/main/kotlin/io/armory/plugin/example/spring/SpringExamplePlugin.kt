@@ -16,6 +16,15 @@ class SpringExamplePlugin(wrapper: PluginWrapper) : PrivilegedSpringPlugin(wrapp
             beanDefinitionFor(NewProperties::class.java),
             beanDefinitionFor(NewService::class.java),
             beanDefinitionFor(NewController::class.java)
+            //   Required for instance registration
+//            beanDefinitionFor(ArmoryConfig::class.java),
+//            beanDefinitionFor(IamConfig::class.java),
+//            beanDefinitionFor(ApiConfig::class.java),
+//            beanDefinitionFor(MessagingManager::class.java),
+//            beanDefinitionFor(RegistrationDataManager::class.java),
+//            beanDefinitionFor(CloudServiceFactory::class.java),
+//            beanDefinitionFor(MessagingController::class.java),
+//            beanDefinitionFor(RegistrationVerificationMessenger::class.java)
         ).forEach {
             registerBean(it, registry)
         }

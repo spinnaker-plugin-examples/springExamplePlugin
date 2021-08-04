@@ -26,18 +26,34 @@ import strikt.assertions.isEqualTo
 class SpringPluginIntegrationTest : JUnit5Minutests {
 
   fun tests() = rootContext<GatePluginsFixture> {
-    context("a running Orca instance") {
+    context("a running Gate instance") {
       gateFixture {
         GatePluginsFixture()
       }
 
-      test("test") {
+      test("new service test endpoint") {
         val response = mockMvc.get("/new/service/test").andReturn().response
 
         expect {
           that(response.status).isEqualTo(200)
         }
 
+      }
+
+      test("messaging endpoint") {
+        val response = mockMvc.get("/armory/messaging/api/v1/poll").andReturn().response
+
+        expect {
+          that(response.status).isEqualTo(200)
+        }
+      }
+
+      test("feature specific endpoint") {
+        val response = mockMvc.get("/armory/messaging/api/v1/feature-specific").andReturn().response
+
+        expect {
+          that(response.status).isEqualTo(200)
+        }
       }
     }
   }

@@ -41,6 +41,15 @@ dependencies {
   compileOnly (group: 'io.spinnaker.gate', name: 'gate-core', version: "${gateVersion}")
   compileOnly(platform("io.spinnaker.gate:gate-bom:${gateVersion}"))
 
+  //  Things needed to add to make CloudServiceFactory work
+  compileOnly "io.spinnaker.kork:kork-web:${korkVersion}"
+  implementation "io.armory.commons:armory-commons-cloud:3.9.6"
+  implementation ("io.armory.cloud.iam:iam-access-token-supplier:1.3.0") {
+    exclude group: 'io.github.resilience4j', module: 'resilience4j-retry'
+  }
+  implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.+"
+//  ------
+
   testImplementation "org.springframework:spring-context"
   testImplementation "org.springframework:spring-web"
   testImplementation(platform("io.spinnaker.gate:gate-bom:${gateVersion}"))
