@@ -9,6 +9,7 @@ pluginManagement {
 rootProject.name="springExamplePlugin"
 
 include "spring-example-orca"
+include "spring-example-gate"
 
 def setBuildFile(project) {
   project.buildFileName = "${project.name}.gradle"
