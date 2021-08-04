@@ -1,9 +1,6 @@
 package io.armory.plugin.example.spring
 
 import com.netflix.spinnaker.kork.plugins.api.spring.PrivilegedSpringPlugin
-import io.armory.plugin.example.spring.controllers.NewController
-import io.armory.plugin.example.spring.properties.NewProperties
-import io.armory.plugin.example.spring.services.NewService
 import org.pf4j.PluginWrapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.support.BeanDefinitionRegistry

@@ -2,8 +2,6 @@ package io.armory.plugin.example.spring
 
 import dev.minutest.junit.JUnit5Minutests
 import dev.minutest.rootContext
-import io.armory.plugin.example.spring.properties.NewProperties
-import io.armory.plugin.example.spring.services.NewService
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 

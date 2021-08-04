@@ -1,6 +1,6 @@
-package io.armory.plugin.example.spring.services
+package io.armory.plugin.example.spring
 
-import io.armory.plugin.example.spring.properties.NewProperties
+import io.armory.plugin.example.spring.NewProperties
 
 class NewService(val newProperties: NewProperties) {
 

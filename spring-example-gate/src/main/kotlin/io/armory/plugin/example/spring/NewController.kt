@@ -1,7 +1,5 @@
-package io.armory.plugin.example.spring.controllers
+package io.armory.plugin.example.spring
 
-import io.armory.plugin.example.spring.properties.NewProperties
-import io.armory.plugin.example.spring.services.NewService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
