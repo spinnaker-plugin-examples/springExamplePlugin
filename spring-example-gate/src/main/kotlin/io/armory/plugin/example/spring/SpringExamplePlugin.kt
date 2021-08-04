@@ -1,17 +1,27 @@
 package io.armory.plugin.example.spring
 
-import com.netflix.spinnaker.kork.plugins.api.spring.SpringLoaderPlugin
+import com.netflix.spinnaker.kork.plugins.api.spring.PrivilegedSpringPlugin
+import io.armory.plugin.example.spring.controllers.NewController
+import io.armory.plugin.example.spring.properties.NewProperties
+import io.armory.plugin.example.spring.services.NewService
 import org.pf4j.PluginWrapper
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.support.BeanDefinitionRegistry
 
-class SpringExamplePlugin(wrapper: PluginWrapper) : SpringLoaderPlugin(wrapper) {
+class SpringExamplePlugin(wrapper: PluginWrapper) : PrivilegedSpringPlugin(wrapper) {
 
     private val logger = LoggerFactory.getLogger(SpringExamplePlugin::class.java)
 
-    override fun getPackagesToScan(): List<String> {
-        return listOf(
-                "io.armory.plugin.example.spring"
-        )
+    // try to set the registry manually
+    override fun registerBeanDefinitions(registry: BeanDefinitionRegistry?) {
+        listOf(
+            // Required for the NewService controller
+            beanDefinitionFor(NewProperties::class.java),
+            beanDefinitionFor(NewService::class.java),
+            beanDefinitionFor(NewController::class.java)
+        ).forEach {
+            registerBean(it, registry)
+        }
     }
 
     override fun start() {
