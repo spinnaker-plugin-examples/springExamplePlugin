@@ -74,11 +74,6 @@ jobs:
           asset_content_type: application/zip
           
       - name: add release to plugin repo
-        id: add-release
-        uses: armory-io/plugin-metadata-updater@master
-        env:
-          GITHUB_OAUTH: ${{ secrets.TOKEN }}
-        with:
-          metadata: build/distributions/plugin-info.json
-          binary_url: https://github.com/${{ steps.get_project_info.outputs.REPO }}/releases/download/${{ steps.get_project_info.outputs.VERSION }}/${{ steps.get_project_info.outputs.PROJECT }}-${{ steps.get_project_info.outputs.VERSION }}.zip
-          metadata_repo_url: https://github.com/spinnaker-plugin-examples/examplePluginRepository
+        run: |
+          curl -XPOST -u "${{ secrets.USERNAME }}:${{ secrets.TOKEN }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/spinnaker-plugin-examples/examplePluginRepository/dispatches --data "{\"event_type\": \"onPluginRelease\", \"client_payload\": {\"org\": \"spinnaker-plugin-examples\", \"repo\": \"${{ steps.get_project_info.outputs.PROJECT }}\", \"released\": $(cat build/distributions/plugin-info.json)}}"
+
